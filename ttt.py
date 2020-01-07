@@ -15,8 +15,37 @@ class BoardNode:
             if(i % 3 == 0):
                 ret_string += "\n"
             ret_string += " " + self.layout[i]
-        return ret_string
+        return ret_string + "\n"
 
+def is_winner(board, symbol):
+    return ((board.layout[6] == symbol and board.layout[7] == symbol and board.layout[8] == symbol) or # across the top
+            (board.layout[3] == symbol and board.layout[4] == symbol and board.layout[5] == symbol) or # across the middle
+            (board.layout[0] == symbol and board.layout[1] == symbol and board.layout[2] == symbol) or # across the bottom
+            (board.layout[6] == symbol and board.layout[3] == symbol and board.layout[0] == symbol) or # down the left side
+            (board.layout[7] == symbol and board.layout[4] == symbol and board.layout[1] == symbol) or # down the middle
+            (board.layout[8] == symbol and board.layout[5] == symbol and board.layout[2] == symbol) or # down the right side
+            (board.layout[6] == symbol and board.layout[4] == symbol and board.layout[2] == symbol) or # diagonal
+            (board.layout[8] == symbol and board.layout[4] == symbol and board.layout[0] == symbol)) # diagonal
+
+def is_full(board):
+    for i in range(0,9):
+        if(is_empty(board,i)):
+            return False
+    return True
+
+def is_empty(board, index):
+    return board.layout[index] == "_"
+
+#Checks to see if there is a win, loss or draw.
+def check_wld(board):
+    if(is_winner(board,'x')):
+        print("x wins and o loses.")
+    elif(is_winner(board,'o')):
+        print("o Wins and x loses.")
+    elif(is_full(board)):
+        print("draw!")
+    else:
+        print("Board not finished yet!")
 
 if __name__ == "__main__":
     args = sys.argv
@@ -29,3 +58,4 @@ if __name__ == "__main__":
         print(board)
     else:
         print("Board Layout is incorrect.")
+    check_wld(board)
