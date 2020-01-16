@@ -175,7 +175,7 @@ if __name__ == "__main__":
     write_file.write("Best move is ")
     write_file.write(pos[board.best_move] + "\n")
     if(board.final_state == 'd'):
-        f.write("Draw in")
+        write_file.write("Draw in ")
     else:
         write_file.write(str(board.final_state))
         write_file.write(" wins in ")
